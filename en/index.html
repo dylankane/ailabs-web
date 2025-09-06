@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Labs — Agents & Automations</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+
+<body>
+
+    <!-- Header / Navbar -->
+    <header class="site-header" id="siteHeader" role="banner" aria-label="Site header">
+        <div class="nav-inner">
+            <a href="#" class="brand-mark" aria-label="AI Labs Home">
+                <img class="brand-logo" src="/assets/images/logo.png" alt="">
+            </a>
+            <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="siteMenu"
+                aria-label="Open menu">
+                <!-- Hamburger icon -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Fullscreen navigation menu -->
+    <nav class="site-menu" id="siteMenu" aria-hidden="true">
+        <div class="menu-wrap container">
+            <ul class="menu-list" role="list">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Our Services</a></li>
+                <li><a href="#">Our Projects</a></li>
+                <li><a href="#">Our World</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Our Agent</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-title">
+                    <p class="welcome-tag">WELCOME TO</p>
+                    <h1>Ai Labs.</h1>
+                    <p class="hero-tag">Empowering Your Business With Custom AI Agents &amp; Automations</p>
+                </div>
+
+
+                <div class="agent-card" aria-live="polite">
+                    <div class="agent-head">
+                        <h2>How can I help?</h2>
+                    </div>
+
+                    <!-- Future message thread; hero will grow as this fills -->
+                    <div class="agent-thread" id="agentThread">
+                    </div>
+
+                    <form class="agent-form" action="javascript:void(0)" autocomplete="off">
+                        <div class="agent-input">
+                            <label for="agentInput" class="sr-only"
+                                style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;">Ask
+                                the AI agent</label>
+                            <input id="agentInput" type="text" placeholder="Ask me anything ...." />
+
+                            <!-- Microphone (left of send, inside the field) -->
+                            <button type="button" class="icon-btn" aria-label="Microphone">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    aria-hidden="true">
+                                    <path d="M12 3a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z" />
+                                    <path d="M19 10v1a7 7 0 0 1-14 0v-1" />
+                                    <path d="M12 19v3" />
+                                </svg>
+                            </button>
+
+                            <!-- Enter / Send -->
+                            <button type="submit" class="send-btn" aria-label="Send message">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    aria-hidden="true">
+                                    <path d="M22 2 11 13" />
+                                    <path d="M22 2 15 22l-4-9-9-4 20-7z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Rest of page -->
+        <section class="content">
+            <div class="content-item">
+                <p>Content goes here. (Temp 100vh to enable scroll.)</p>
+            </div>
+            <div class="content-item">
+                <p>Content goes here. (Temp 100vh to enable scroll.)</p>
+            </div>
+            <div class="content-item">
+                <p>Content goes here. (Temp 100vh to enable scroll.)</p>
+            </div>
+            <div class="content-item">
+                <p>Content goes here. (Temp 100vh to enable scroll.)</p>
+            </div>
+            <div class="content-item">
+                <p>Content goes here. (Temp 100vh to enable scroll.)</p>
+            </div>
+            <div class="content-item">
+                <p>Content goes here. (Temp 100vh to enable scroll.)</p>
+            </div>
+            <div class="content-item">
+                <p>Content goes here. (Temp 100vh to enable scroll.)</p>
+            </div>
+            <div class="content-item">
+                <p>Content goes here. (Temp 100vh to enable scroll.)</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="/assets/js/nav-menu.js"></script>
+    <script src="/assets/js/agent.js"></script>
+
+
+</body>
+
+</html>
