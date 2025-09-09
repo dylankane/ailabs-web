@@ -56,6 +56,11 @@
                     <p class="hero-tag">Empowering Your Business With Custom AI Agents &amp; Automations</p>
                 </div>
 
+                <!-- Ball element -->
+                <div class="hero-ball" aria-hidden="true">
+                    <span class="hero-ball-inner"></span>
+                </div>
+
 
                 <div class="agent-card" aria-live="polite">
                     <div class="agent-head">
@@ -63,8 +68,7 @@
                     </div>
 
                     <!-- Future message thread; hero will grow as this fills -->
-                    <div class="agent-thread" id="agentThread">
-                    </div>
+                    <div class="agent-thread" id="agentThread"></div>
 
                     <form class="agent-form" action="javascript:void(0)" autocomplete="off">
                         <div class="agent-input">
@@ -101,9 +105,24 @@
 
         <!-- Rest of page -->
         <section class="content">
+
             <div class="content-item">
-                <p>Content goes here. (Temp 100vh to enable scroll.)</p>
+                <div class="intro" id="intro">
+                    <p class="intro-text">
+                        We build custom AI agents and automations that plug straight into your workflow—so your team can
+                        move faster with less overhead.
+                    </p>
+
+                    <div class="intro-media">
+                        <video autoplay loop muted preload="metadata" poster="/assets/images/intro-poster.jpg">
+                            <source src="/assets/videos/AI-Labs.graphic-video.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
             </div>
+
+
             <div class="content-item">
                 <p>Content goes here. (Temp 100vh to enable scroll.)</p>
             </div>
@@ -128,8 +147,26 @@
         </section>
     </main>
 
+
+    <!-- <script>
+        const thread = document.getElementById('agentThread');
+
+        function updateFades() {
+            const atTop = thread.scrollTop <= 0;
+            const atBottom = thread.scrollHeight - thread.scrollTop <= thread.clientHeight + 1;
+            thread.classList.toggle('at-top', atTop);
+            thread.classList.toggle('at-bottom', atBottom);
+        }
+
+        // init + hooks
+        updateFades();
+        thread.addEventListener('scroll', updateFades, { passive: true });
+        window.addEventListener('resize', updateFades, { passive: true });
+    </script> -->
+    <!-- <script src="/assets/js/agent-scroll.js"></script> -->
     <script src="/assets/js/nav-menu.js"></script>
     <script src="/assets/js/agent.js"></script>
+    <script src="/assets/js/ball.js"></script>
 
 
 </body>

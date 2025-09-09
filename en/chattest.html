@@ -1,154 +1,255 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Agent Card — Grow Up, Page Grows Down</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Overlay Line Scrollbar + Input</title>
 <style>
   :root{
-    --bg:#f8f8f8; --text:#1a1a1a; --muted:#666;
-    --accent:#d4a017; --white:#fff; --border:#e6e6e6; --radius:14px;
-  }
-  html,body{height:100%}
-  body{
-    margin:0; background:var(--bg); color:var(--text);
-    font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  }
-
-  /* HERO: normal flow, allowed to grow downward naturally */
-  .hero{
-    min-height:100svh;           /* mobile-safe viewport */
-    display:flex; flex-direction:column; align-items:center;
-    gap:3rem;                     /* places card in lower half */
-    padding:2rem 1rem;
-    box-sizing:border-box;
-    overflow:visible;             /* important: allow growth, no clipping */
-  }
-  .hero-title{max-width:60ch; text-align:center}
-  .hero-title h1{margin:.2rem 0; font-size:clamp(2rem,5vw,3rem)}
-  .hero-title p{margin:0; color:var(--muted)}
-
-  /* AGENT CARD: bottom edge is its natural place; input pinned to card bottom */
-  .agent-card{
-    width:min(100%, 720px);
-    background:var(--white);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    box-shadow:0 6px 20px rgba(0,0,0,.07);
-    display:flex;
-    flex-direction:column;
-    justify-content:flex-end;     /* input stays at card bottom */
-    max-height:90svh;             /* cap card height */
-    overflow:hidden;              /* thread will scroll inside */
+    --track-opacity: 0.15;    /* lighter line */
+    --thumb-opacity: 0.80;    /* darker moving segment */
+    --line-thickness: 3px;    /* line thickness */
+    --line-offset: 8px;       /* inset from right edge */
+    --line-color: 0,0,0;      /* RGB (no alpha) */
+    --thumb-radius: 999px;    /* fully rounded ends */
   }
 
-  .agent-thread{
-    flex:1 1 auto;
-    overflow-y:auto;
-    padding:1rem;
-    display:flex; flex-direction:column; gap:.75rem;
-    scroll-behavior:smooth;
-    background:#fff;
-  }
-  .msg{
-    max-width:75%;
-    padding:.6rem .9rem; border-radius:12px;
-    border:1px solid var(--border); background:#fff;
-    word-wrap:break-word;
-  }
-  .msg.user{
-    align-self:flex-end;
-    background:var(--accent); border-color:var(--accent); color:#111;
+  html, body {
+    height: 100%;
   }
 
-  .agent-form{
-    display:flex; align-items:center; gap:.5rem;
-    padding:.6rem; border-top:1px solid var(--border); background:#fff;
-  }
-  .agent-form input{
-    flex:1; padding:.7rem .9rem;
-    border:1px solid var(--border); border-radius:12px; font-size:1rem; outline:none;
-  }
-  .agent-form button{
-    padding:.7rem 1rem; border:none; border-radius:12px; background:var(--accent); color:#111; cursor:pointer;
+  body {
+    margin: 0;
+    display: grid;
+    place-items: center;
+    background: #f6f6f6;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: #222;
   }
 
-  /* extra content below so you can scroll page */
-  .below{height:120vh; display:grid; place-items:center; color:#777}
+  /* Outer card */
+  .demo-wrap {
+    width: 80vw;
+    height: 75vh;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    overflow: hidden;         /* clip overlay nicely */
+    position: relative;       /* anchor overlay */
+  }
+
+  /* Scrollable area */
+  .scroller {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    box-sizing: border-box;
+    padding: 16px 28px 16px 16px;   /* extra right padding to breathe near line */
+    -webkit-overflow-scrolling: touch;
+
+    /* Hide native scrollbar but keep scrolling */
+    scrollbar-width: none;          /* Firefox */
+  }
+  .scroller::-webkit-scrollbar {    /* Chrome/Safari/Edge */
+    width: 0;
+    height: 0;
+  }
+
+  /* Sticky input at the top of the scrollable area */
+  .composer {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #fff;
+    padding: 10px 0 14px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 12px;
+  }
+
+  .composer input {
+    width: 100%;
+    box-sizing: border-box;
+    font: inherit;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+  }
+  .composer input:focus {
+    border-color: #bbb;
+  }
+
+  /* Content area */
+  .content { display: grid; gap: 10px; }
+  .line {
+    padding: 10px 12px;
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    word-break: break-word;
+  }
+
+  /* ---------- Overlay line scrollbar ---------- */
+  .scrollbar-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;      /* clicks go through */
+  }
+
+  .scrollbar-track {
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    right: var(--line-offset);
+    width: var(--line-thickness);
+    background: rgba(var(--line-color), var(--track-opacity));
+    border-radius: var(--thumb-radius);
+    opacity: 0;                /* hidden until overflow */
+    transition: opacity .15s ease;
+  }
+
+  .scrollbar-thumb {
+    position: absolute;
+    right: var(--line-offset);
+    width: var(--line-thickness);
+    background: rgba(var(--line-color), var(--thumb-opacity));
+    border-radius: var(--thumb-radius);
+    opacity: 0;                /* hidden until overflow */
+    transition: opacity .15s ease;
+  }
+
+  .overlay-visible .scrollbar-track,
+  .overlay-visible .scrollbar-thumb {
+    opacity: 1;
+  }
 </style>
 </head>
 <body>
-  <section class="hero" id="hero">
-    <div class="hero-title">
-      <h1>AI Labs — Demo</h1>
-      <p>Card starts in the lower half. As chat grows, the card grows upward, the page grows downward, and the latest message is always visible.</p>
-    </div>
 
-    <!-- card lives mid/lower (thanks to .hero gap); it grows upward only -->
-    <div class="agent-card" id="agentCard">
-      <div class="agent-thread" id="thread"></div>
-      <form class="agent-form" id="chatForm" autocomplete="off">
-        <input id="chatInput" type="text" placeholder="Type a message…">
-        <button type="submit">Send</button>
-      </form>
-    </div>
-  </section>
+<div class="demo-wrap" id="demo">
+  <div class="scroller" id="scroller" aria-label="Scrollable content">
+    <form class="composer" id="composer" autocomplete="off">
+      <input id="lineInput" type="text" placeholder="Type and press Enter to add a line…" />
+    </form>
 
-  <div class="below">
-    <p>Extra page content</p>
+    <div id="content" class="content" aria-live="polite">
+      <!-- Starter lines -->
+      <div class="line">Welcome! Add lines with the input above.</div>
+      <div class="line">This overlay scrollbar is just a thin line with a darker moving segment.</div>
+      <div class="line">As content grows, the thumb shortens and the track stays the same height.</div>
+      <div class="line">Try adding a few lines and scrolling around.</div>
+      <div class="line">You can tweak thickness, offset, and colors via CSS variables.</div>
+    </div>
   </div>
 
+  <!-- Overlay progress line -->
+  <div class="scrollbar-overlay" aria-hidden="true">
+    <div class="scrollbar-track"></div>
+    <div class="scrollbar-thumb" id="thumb"></div>
+  </div>
+</div>
+
 <script>
-  const card   = document.getElementById('agentCard');
-  const thread = document.getElementById('thread');
-  const form   = document.getElementById('chatForm');
-  const input  = document.getElementById('chatInput');
+(() => {
+  const scroller = document.getElementById('scroller');
+  const demoWrap = document.getElementById('demo');
+  const content = document.getElementById('content');
+  const composer = document.getElementById('composer');
+  const input = document.getElementById('lineInput');
+  const thumb = document.getElementById('thumb');
 
-  // 1) Always show newest message inside the thread
-  function scrollThreadToBottom(){
-    thread.scrollTop = thread.scrollHeight - thread.clientHeight;
-  }
+  const TRACK_INSET_TOP = 8;    // must match CSS .scrollbar-track top
+  const TRACK_INSET_BOTTOM = 8; // must match CSS .scrollbar-track bottom
+  const MIN_THUMB = 32;         // min px for usability
 
-  // 2) Keep the card's bottom at the viewport bottom by scrolling the PAGE
-  //    (only if the card's bottom is below the viewport bottom)
-  function alignCardBottomToViewport(){
-    const rect = card.getBoundingClientRect();
-    const delta = rect.bottom - window.innerHeight;
-    if (delta > 0){
-      window.scrollBy({ top: delta, behavior: 'instant' in window ? 'instant' : 'smooth' });
+  function updateThumb() {
+    const scrollHeight = scroller.scrollHeight;
+    const clientHeight = scroller.clientHeight;
+    const scrollTop = scroller.scrollTop;
+
+    const hasOverflow = scrollHeight > clientHeight + 1;
+
+    // Toggle overlay visibility class on the wrapper
+    if (hasOverflow) {
+      demoWrap.classList.add('overlay-visible');
+      thumb.style.display = 'block';
+    } else {
+      demoWrap.classList.remove('overlay-visible');
+      thumb.style.display = 'none';
+      return;
     }
+
+    // Available track height inside the container
+    const trackHeight = clientHeight - TRACK_INSET_TOP - TRACK_INSET_BOTTOM;
+
+    // Thumb size proportional to visible fraction
+    const visibleFraction = clientHeight / scrollHeight;
+    const thumbHeight = Math.max(MIN_THUMB, Math.round(trackHeight * visibleFraction));
+
+    // Thumb position proportional to scroll progress
+    const maxScroll = scrollHeight - clientHeight;
+    const maxThumbTravel = trackHeight - thumbHeight;
+    const scrollFraction = maxScroll > 0 ? scrollTop / maxScroll : 0;
+    const thumbTop = TRACK_INSET_TOP + Math.round(maxThumbTravel * scrollFraction);
+
+    thumb.style.height = thumbHeight + 'px';
+    thumb.style.top = thumbTop + 'px';
   }
 
-  // Append a message and maintain visibility
-  function addMessage(text, fromUser=false){
-    const bubble = document.createElement('div');
-    bubble.className = 'msg' + (fromUser ? ' user' : '');
-    bubble.textContent = text;
-    thread.appendChild(bubble);
-
-    // After layout paints: ensure newest visible and card bottom aligned
-    requestAnimationFrame(() => {
-      scrollThreadToBottom();
-      alignCardBottomToViewport();
+  // rAF throttle
+  let raf = null;
+  function scheduleUpdate() {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      updateThumb();
+      raf = null;
     });
   }
 
-  form.addEventListener('submit', (e)=>{
+  // Add a line on Enter
+  composer.addEventListener('submit', (e) => {
     e.preventDefault();
-    const val = input.value.trim();
-    if(!val) return;
-    addMessage(val, true);
+    const text = input.value.trim();
+    if (!text) return;
+
+    const div = document.createElement('div');
+    div.className = 'line';
+    div.textContent = text;
+    content.appendChild(div);
+
     input.value = '';
-    setTimeout(()=> addMessage("Bot reply to: " + val), 400);
+
+    // Optionally auto-scroll to bottom to see the new line
+    scroller.scrollTo({ top: scroller.scrollHeight, behavior: 'smooth' });
+
+    // Update overlay after DOM change
+    scheduleUpdate();
   });
 
-  // Also correct alignment if window size changes
-  window.addEventListener('resize', () => {
-    requestAnimationFrame(() => {
-      scrollThreadToBottom();
-      alignCardBottomToViewport();
-    });
+  // Also capture Enter key in case the browser doesn't submit on Enter for some reason
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      // Let 'submit' handler run
+      // Prevent newline in some browsers (e.g., if input becomes textarea later)
+      e.preventDefault();
+      composer.requestSubmit();
+    }
   });
+
+  // Keep overlay in sync on scroll/resize
+  scroller.addEventListener('scroll', scheduleUpdate, { passive: true });
+  window.addEventListener('resize', scheduleUpdate);
+  window.addEventListener('load', scheduleUpdate);
+
+  // Observe content height changes (adding/removing lines, images loading, etc.)
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(scheduleUpdate);
+    ro.observe(content);
+  }
+
+  // Initial paint
+  scheduleUpdate();
+})();
 </script>
 </body>
 </html>
