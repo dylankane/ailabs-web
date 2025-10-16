@@ -12,193 +12,402 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
 
-    <!-- Header / Navbar -->
-    <header class="site-header" id="siteHeader" role="banner" aria-label="Site header">
-        <div class="nav-inner">
-            <a href="#" class="brand-mark" aria-label="AI Labs Home">
-                <img class="brand-logo" src="/assets/images/logo.png" alt="">
-            </a>
-            <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="siteMenu"
-                aria-label="Open menu">
-                <!-- Hamburger icon -->
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16" />
-                </svg>
-            </button>
-        </div>
-    </header>
+    <!-- Navbar -->
+    <header id="header"></header>
 
-    <!-- Fullscreen navigation menu -->
-    <nav class="site-menu" id="siteMenu" aria-hidden="true">
-        <div class="menu-wrap container">
-            <ul class="menu-list" role="list">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Our Services</a></li>
-                <li><a href="#">Our Projects</a></li>
-                <li><a href="#">Our World</a></li>
-                <li><a href="#">Contact Us</a></li>
-                <li><a href="#">Our Agent</a></li>
-            </ul>
-        </div>
-    </nav>
+    <!-- Hero -->
+    <section class="hero" id="hero"></section>
 
     <main>
-        <!-- HERO -->
-        <section class="hero">
-            <div class="hero-container">
-                <div class="hero-title">
-                    <p class="welcome-tag">WELCOME TO</p>
-                    <h1>Ai Labs.</h1>
-                    <p class="hero-tag">Empowering Your Business With Custom AI Agents &amp; Automations</p>
-                </div>
-
-                <!-- Ball element -->
-                <div class="hero-ball" aria-hidden="true">
-                    <span class="hero-ball-inner"></span>
-                </div>
-
-
-                <div class="agent-card" aria-live="polite">
-                    <div class="agent-head">
-                        <h2>How can I help?</h2>
-                    </div>
-
-                    <!-- Future message thread; hero will grow as this fills -->
-                    <div class="agent-thread" id="agentThread"></div>
-
-                    <form class="agent-form" action="javascript:void(0)" autocomplete="off">
-                        <div class="agent-input">
-                            <label for="agentInput" class="sr-only"
-                                style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;">Ask
-                                the AI agent</label>
-                            <input id="agentInput" type="text" placeholder="Ask me anything ...." />
-
-                            <!-- Microphone (left of send, inside the field) -->
-                            <button type="button" class="icon-btn" aria-label="Microphone">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    aria-hidden="true">
-                                    <path d="M12 3a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z" />
-                                    <path d="M19 10v1a7 7 0 0 1-14 0v-1" />
-                                    <path d="M12 19v3" />
-                                </svg>
-                            </button>
-
-                            <!-- Enter / Send -->
-                            <button type="submit" class="send-btn" aria-label="Send message">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    aria-hidden="true">
-                                    <path d="M22 2 11 13" />
-                                    <path d="M22 2 15 22l-4-9-9-4 20-7z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </form>
-
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Rest of page -->
-        <section class="content">
-
-            <div class="content-item">
+        <!-- SECTION 1 -->
+        <section class="section section-1">
+            <div class="container container-1">
                 <div class="intro" id="intro">
-                    <p class="intro-text">
-                        We build custom AI agents and automations that plug straight into your workflow—so your team can
-                        move faster with less overhead.
-                    </p>
+                    <div class="intro-text" role="region" aria-label="Introduction">
+                        <h2>Bespoke AI Solutions</h2>
+                        <p>
+                            We build custom AI agents and automations that enhance your business processes and free up
+                            your team's time. From customer service to project management, we can help you.
+                        </p>
+                        <a href="#contact" class="btn btn-intro">Get In Touch</a>
+                    </div>
+                    <div class="intro-video">
+                        <video src="/assets/videos/intro-vid.mp4" autoplay muted loop playsinline
+                            preload="auto"></video>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                    <div class="intro-media">
-                        <video autoplay loop muted preload="metadata" poster="/assets/images/intro-poster.jpg">
-                            <source src="/assets/videos/AI-Labs.graphic-video.mp4" type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
+        <!-- SECTION 1.5 -->
+        <section class="section section-1.5">
+            <div class="container container-1.5">
+                <div class="section-title">
+                    <h2>What We Do</h2>
+                    <p>Here's what we offer to help you succeed.</p>
+                    <i class="fa-solid fa-arrow-down fa-2xl"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2 -->
+        <section class="section section-2">
+            <div class="container container-2">
+
+                <div class="poster poster-1">
+                    <div class="poster-inner">
+                        <div class="media"><img src="/assets/images/poster1.png" alt=""></div>
+                        <div class="copy">
+                            <h2>AI Agents</h2>
+                            <p>Conversational and task agents wired to your stack.</p>
+                            <a href="#contact" class="btn btn-poster">Learn More</a>
+                        </div>
                     </div>
                 </div>
 
-                <div class="features-row">
-                    <article class="feature">
-                        <img class="feature-logo" src="/assets/images/logo-no-text.png" alt="Logo 1">
-                        <div class="feature-body">
-                            <h3 class="feature-title">Performance</h3>
-                            <p class="feature-text">Fast, reliable sites built to load quickly and run smoothly on
-                                any device.</p>
+                <div class="poster poster-2">
+                    <div class="poster-inner">
+                        <div class="copy">
+                            <h2>AI Automations</h2>
+                            <p>Workflows that extract data and trigger actions.</p>
+                            <a href="#contact" class="btn btn-poster">Learn More</a>
                         </div>
-                    </article>
+                        <div class="media"><img src="/assets/images/poster1.png" alt=""></div>
+                    </div>
+                </div>
 
-                    <article class="feature">
-                        <img class="feature-logo" src="/assets/images/logo-no-text.png" alt="Logo 2">
-                        <div class="feature-body">
-                            <h3 class="feature-title">Photography</h3>
-                            <p class="feature-text">Original photos and video, shot in-house to showcase your brand
-                                authentically.</p>
+                <div class="poster poster-3">
+                    <div class="poster-inner">
+                        <div class="media"><img src="/assets/images/poster1.png" alt=""></div>
+                        <div class="copy">
+                            <h2>Discovery</h2>
+                            <p>Audit, prototype, and map data flow fast.</p>
+                            <a href="#contact" class="btn btn-poster">Learn More</a>
                         </div>
-                    </article>
+                    </div>
+                </div>
 
-                    <article class="feature">
-                        <img class="feature-logo" src="/assets/images/logo-no-text.png" alt="Logo 3">
-                        <div class="feature-body">
-                            <h3 class="feature-title">Hosting & Care</h3>
-                            <p class="feature-text">Secure hosting, domain setup, and ongoing maintenance handled
-                                for you.</p>
+                <div class="poster poster-4">
+                    <div class="poster-inner">
+                        <div class="copy">
+                            <h2>Growth</h2>
+                            <p>Iterate with analytics and retention loops.</p>
+                            <a href="#contact" class="btn btn-poster">Learn More</a>
                         </div>
-                    </article>
-
+                        <div class="media"><img src="/assets/images/poster1.png" alt=""></div>
+                    </div>
                 </div>
 
             </div>
+        </section>
 
+        <!-- SECTION 3 -->
+        <section class="section section-3">
+            <div class="container container-3">
+                <div class="cards-row">
+                    <div class="card">
+                        <div class="icon">
+                            <img src="/assets/images/logo-no-text.png" alt="Idea & Strategy">
+                        </div>
+                        <h3>Idea & Strategy</h3>
+                        <p>We help you define a clear vision and actionable plan.</p>
+                        <ul>
+                            <li>Brand positioning</li>
+                            <li>Market analysis</li>
+                            <li>Creative direction</li>
+                        </ul>
+                    </div>
 
-            <div class="content-item">
-                <p>Content goes here. (Temp 100vh to enable scroll.)</p>
-            </div>
-            <div class="content-item">
-                <p>Content goes here. (Temp 100vh to enable scroll.)</p>
-            </div>
-            <div class="content-item">
-                <p>Content goes here. (Temp 100vh to enable scroll.)</p>
-            </div>
-            <div class="content-item">
-                <p>Content goes here. (Temp 100vh to enable scroll.)</p>
-            </div>
-            <div class="content-item">
-                <p>Content goes here. (Temp 100vh to enable scroll.)</p>
-            </div>
-            <div class="content-item">
-                <p>Content goes here. (Temp 100vh to enable scroll.)</p>
-            </div>
-            <div class="content-item">
-                <p>Content goes here. (Temp 100vh to enable scroll.)</p>
+                    <div class="card">
+                        <div class="icon">
+                            <img src="/assets/images/logo-no-text.png" alt="Idea & Strategy">
+                        </div>
+                        <h3>Development</h3>
+                        <p>We build fast, scalable, and modern web experiences.</p>
+                        <ul>
+                            <li>Responsive websites</li>
+                            <li>SEO optimization</li>
+                            <li>Automation tools</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="icon">
+                            <img src="/assets/images/logo-no-text.png" alt="Idea & Strategy">
+                        </div>
+                        <h3>Launch & Growth</h3>
+                        <p>We help you scale your digital presence effectively.</p>
+                        <ul>
+                            <li>Marketing campaigns</li>
+                            <li>Analytics setup</li>
+                            <li>Ongoing support</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </section>
+
+        <!-- SECTION 4 -->
+        <section class="section section-4">
+            <div class="container container-4">
+                <div class="banner" id="banner">
+                    <div class="banner-text" role="region" aria-label="Introduction">
+                        <h2>Who is AI Labs?</h2>
+                        <p>
+                            We are a team of AI enthusiasts and developers who are passionate about creating innovative
+                            AI solutions for businesses and individuals. We build custom AI agents and automations that
+                            enhance your business processes and free up your team's time. From customer service to
+                            project
+                            management, we can help you.
+                        </p>
+                        <a href="#contact" class="btn btn-banner">Get In Touch</a>
+                    </div>
+                    <div class="banner-image" aria-hidden="true">
+                        <img class="banner-img " src="
+                            https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?q=80&w=1470&auto=format&fit=crop"
+                            alt="" role="presentation">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5 -->
+        <section class="section section-5">
+            <div class="container container-5">
+                <div class="section-title">
+                    <h2>Learn More</h2>
+                    <p>Here's what we offer to help you succeed.</p>
+                </div>
+                <div class="carousel-tabs">
+                    <button class="carousel-tab is-active" data-slide="0">Strategy</button>
+                    <button class="carousel-tab" data-slide="1">Build</button>
+                    <button class="carousel-tab" data-slide="2">Launch</button>
+                </div>
+
+                <div class="carousel">
+                    <div class="carousel-track">
+                        <article class="slide">
+                            <div class="slide-content">
+                                <div class="slide-text">
+                                    <h3>Vision & Strategy</h3>
+                                    <p>Shape a clear roadmap with measurable milestones and smart prioritization.</p>
+                                    <ul>
+                                        <li>Positioning & goals</li>
+                                        <li>Audience insights</li>
+                                        <li>Value propositions</li>
+                                    </ul>
+                                    <a href="#contact" class="btn btn-slide">Our Products</a>
+                                </div>
+                                <div class="slide-media">
+                                    <img src="https://picsum.photos/seed/strategy/1200/800" alt="Strategy concept">
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="slide">
+                            <div class="slide-content">
+                                <div class="slide-text">
+                                    <h3>Design & Build</h3>
+                                    <p>Craft a fast, accessible experience with clean UI and reliable automation.</p>
+                                    <ul>
+                                        <li>Modern front-end</li>
+                                        <li>SEO foundations</li>
+                                        <li>Workflow automations</li>
+                                    </ul>
+                                    <a href="#contact" class="btn btn-slide">Our Products</a>
+                                </div>
+                                <div class="slide-media">
+                                    <img src="https://picsum.photos/seed/build/1200/800" alt="Build concept">
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="slide">
+                            <div class="slide-content">
+                                <div class="slide-text">
+                                    <h3>Launch & Grow</h3>
+                                    <p>Go live smoothly and iterate using analytics, feedback, and experiments.</p>
+                                    <ul>
+                                        <li>Campaign rollout</li>
+                                        <li>Tracking & KPIs</li>
+                                        <li>Continuous optimization</li>
+                                    </ul>
+                                    <a href="#contact" class="btn btn-slide">Our Products</a>
+                                </div>
+                                <div class="slide-media">
+                                    <img src="https://picsum.photos/seed/launch/1200/800" alt="Launch concept">
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6 -->
+        <section class="section section-6" id="contact">
+            <div class="container container-6">
+                <div class="section-title">
+                    <h2>Contact Us</h2>
+                    <p>Get in touch with us for any inquiries or questions.</p>
+                </div>
+
+                <!-- Top: Details -->
+                <div class="contact-details">
+                    <div class="details-grid">
+
+                        <!-- Spain -->
+                        <div class="region-card">
+                            <div class="region-head">
+                                <span class="flag">🇪🇸</span>
+                                <h3>Spain</h3>
+                            </div>
+                            <div class="detail">
+                                <p>Altea</p>
+                                <p>Alicante</p>
+                            </div>
+                            <a class="phone-detail" href="tel:+353863618686">
+                                <i class="fa-solid fa-phone" style="color: #004b85;"></i>
+                                <span>+353 86 361 8686</span>
+                            </a>
+                            <a class="whats-app-detail" href="https://wa.me/353863618686" target="_blank"
+                                rel="noopener">
+                                <i class="fa-brands fa-whatsapp fa-xl" style="color: #25d366;"></i>
+                                <span>WhatsApp</span>
+                            </a>
+                        </div>
+
+                        <!-- Ireland -->
+                        <div class="region-card">
+                            <div class="region-head">
+                                <span class="flag">🇮🇪</span>
+                                <h3>Ireland</h3>
+                            </div>
+                            <div class="detail">
+                                <p>Dun Laoghaire</p>
+                                <p>Co. Dublin</p>
+                            </div>
+                            <a class="phone-detail" href="tel:+353863618686">
+                                <i class="fa-solid fa-phone" style="color: #004b85;"></i>
+                                <span>+353 86 361 8686</span>
+                            </a>
+                            <a class="whats-app-detail" href="https://wa.me/353863618686" target="_blank"
+                                rel="noopener">
+                                <i class="fa-brands fa-whatsapp fa-xl" style="color: #25d366;"></i>
+                                <span>WhatsApp</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- EMAIL -->
+                    <div class="general-line">
+                        <a class="email" href="mailto:info@ailabs.com">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                            </svg>
+                            info@ailabs.com
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Bottom: Form -->
+                <form class="contact-form" action="#" method="post" novalidate>
+                    <div class="row two">
+                        <input type="text" name="name" placeholder="Name" autocomplete="name">
+                        <input type="email" name="email" placeholder="Email" autocomplete="email">
+                    </div>
+                    <input type="tel" name="phone" placeholder="Phone" autocomplete="tel">
+                    <textarea name="message" rows="5" placeholder="Message"></textarea>
+                    <button type="submit">SEND</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- SECTION 7 -->
+        <section class="section section-7">
+            <div class="container container-7">
+                <div class="section-title">
+                    <h2>Our World</h2>
+                    <p>Here's what we offer to help you succeed.</p>
+                </div>
+
+                <div class="companies-grid">
+
+                    <!-- MKG Digital -->
+                    <article class="company-card company-card-1">
+                        <div class="card-content">
+                            <img src="/assets/images/mkg-logo.png" alt="MKG Digital Logo" class="company-logo">
+                            <p>MKG Digital - Our parent company, specializing in full-service digital marketing. We
+                                manage
+                                Google &
+                                YouTube ad campaigns, build your social media presence, create content, and offer
+                                translation services.</p>
+                        </div>
+                    </article>
+
+                    <!-- Boceto -->
+                    <article class="company-card company-card-2">
+                        <div class="card-content">
+                            <img src="/assets/images/boceto-logo.png" alt="Boceto Logo" class="company-logo">
+                            <p>Boceto - For all your web and software design and development needs.
+                                Creating and delivering custom web solutions with beatiful and practical designs,
+                                with an eye for branding and user experience.</p>
+                        </div>
+                    </article>
+
+                    <!-- AI Labs -->
+                    <article class="company-card company-card-3">
+                        <div class="card-content">
+                            <img src="/assets/images/ai-labs-logo.png" alt="AI Labs Logo" class="company-logo">
+                            <p>Ai Labs - Your R&D partner for bespoke AI solutions. From intelligent chatbots to complex
+                                backend
+                                automations, we build the custom software that powers your business innovation.</p>
+                        </div>
+                    </article>
+
+                    <!-- AVA 10 -->
+                    <article class="company-card company-card-4">
+                        <div class="card-content">
+                            <img src="/assets/images/ava-10-logo.png" alt="AVA 10 Logo" class="company-logo">
+                            <p>AVA 10 - The Audio Visual Arts department. We provide professional photography,
+                                videography,
+                                and
+                                streaming services for real estate, YouTube content creators, corporate events, and
+                                more.
+                            </p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
     </main>
 
+    <!-- Footer-->
+    <footer id="footer"></footer>
 
-    <!-- <script>
-        const thread = document.getElementById('agentThread');
-
-        function updateFades() {
-            const atTop = thread.scrollTop <= 0;
-            const atBottom = thread.scrollHeight - thread.scrollTop <= thread.clientHeight + 1;
-            thread.classList.toggle('at-top', atTop);
-            thread.classList.toggle('at-bottom', atBottom);
+    <!-- PARTIALS Script-->
+    <script>
+        async function loadHTML(id, file) {
+            const el = document.getElementById(id);
+            const res = await fetch(file);
+            el.innerHTML = await res.text();
         }
+        loadHTML("footer", "/en/partials/footer.html");
+    </script>
 
-        // init + hooks
-        updateFades();
-        thread.addEventListener('scroll', updateFades, { passive: true });
-        window.addEventListener('resize', updateFades, { passive: true });
-    </script> -->
-    <!-- <script src="/assets/js/agent-scroll.js"></script> -->
-    <script src="/assets/js/nav-menu.js"></script>
-    <script src="/assets/js/agent.js"></script>
-    <script src="/assets/js/ball.js"></script>
-
+    <!-- JS Scripts-->
+    <script src="/assets/js/carousel.js"></script>
+    <script src="/assets/js/partials-script.js"></script>
+    <!-- <script src="/assets/js/nav-menu.js"></script>
+    <script src="/assets/js/agent.js"></script> -->
+    <!-- <script src="/assets/js/ball.js"></script> -->
 
 </body>
 

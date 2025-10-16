@@ -15,42 +15,64 @@ spacer.className = 'agent-form-spacer';
 form.parentNode.insertBefore(spacer, form);
 
 /* ---------- Fix/unfix with scroll direction ---------- */
-let lastScrollY = window.scrollY;
+let isFixed = false;
+let isTransitioning = false;
 
 function setFixed(on){
-  if (on){
-    if (!form.classList.contains('is-fixed')){
+  if (on && !isFixed){
+    isTransitioning = true;
+    
+    // Measure BEFORE changing anything to prevent layout shift
+    const formHeight = form.offsetHeight;
+    
+    // Set spacer height FIRST (before adding class)
+    spacer.style.height = formHeight + 'px';
+    
+    // Then add classes in next frame to ensure smooth transition
+    requestAnimationFrame(() => {
       form.classList.add('is-fixed');
       spacer.classList.add('show');
-      spacer.style.height = form.offsetHeight + 'px';
-    }
-  } else {
-    if (form.classList.contains('is-fixed')){
-      form.classList.remove('is-fixed');
-      spacer.classList.remove('show');
-      spacer.style.height = '0px';
-    }
+      isFixed = true;
+      
+      // Allow time for the transition to complete
+      setTimeout(() => {
+        isTransitioning = false;
+      }, 100);
+    });
+  } else if (!on && isFixed){
+    isTransitioning = true;
+    
+    form.classList.remove('is-fixed');
+    spacer.classList.remove('show');
+    spacer.style.height = '0px';
+    isFixed = false;
+    
+    setTimeout(() => {
+      isTransitioning = false;
+    }, 100);
   }
 }
 
 const io = new IntersectionObserver((entries) => {
+  // Ignore callbacks during transition to prevent bouncing
+  if (isTransitioning) return;
+  
   const e = entries[0];
-  const scrollingDown = window.scrollY > lastScrollY;
-  lastScrollY = window.scrollY;
-
-  // Fix ONLY when scrolling down and the sentinel has passed the top
-  if (!e.isIntersecting && scrollingDown && e.boundingClientRect.top <= 0) {
+  
+  // Fix when sentinel goes above viewport (not intersecting and above)
+  if (!e.isIntersecting && e.boundingClientRect.top < 0) {
     setFixed(true);
-    return;
   }
-  // Unfix otherwise (scrolling up or sentinel visible)
-  setFixed(false);
-}, { root: null, threshold: 0 });
+  // Unfix when sentinel comes back into view
+  else if (e.isIntersecting) {
+    setFixed(false);
+  }
+}, { root: null, threshold: 0, rootMargin: '0px' });
 io.observe(sentinel);
 
 /* Keep spacer height in sync on resize (in case form height changes) */
 window.addEventListener('resize', () => {
-  if (form.classList.contains('is-fixed')){
+  if (isFixed){
     spacer.style.height = form.offsetHeight + 'px';
   }
 });
@@ -115,7 +137,7 @@ function revealBubble(bubble, who /* 'user' | 'bot' */){
  * If the input/card is below the viewport, typing/focus should immediately dock it.
  */
 function maybeDockOnFocusOrType(evtType){
-  if (form.classList.contains('is-fixed')) return; // when fixed at top, don't change on typing; submit will dock
+  if (isFixed) return; // when fixed at top, don't change on typing; submit will dock
 
   const rect = card.getBoundingClientRect();
   const viewH = viewportH();
@@ -150,7 +172,7 @@ form.addEventListener('submit', (e) => {
     // After docking completes a frame later, reveal the proper part of the bubble
     requestAnimationFrame(() => {
       revealBubble(user, 'user');
-      if (form.classList.contains('is-fixed')){
+      if (isFixed){
         spacer.style.height = form.offsetHeight + 'px';
       }
     });
@@ -168,7 +190,7 @@ form.addEventListener('submit', (e) => {
 
       requestAnimationFrame(() => {
         revealBubble(bot, 'bot');
-        if (form.classList.contains('is-fixed')){
+        if (isFixed){
           spacer.style.height = form.offsetHeight + 'px';
         }
       });
