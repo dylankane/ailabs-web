@@ -1,5 +1,6 @@
 // Menu open/close
 const menuToggle = document.getElementById('menuToggle');
+const menuClose = document.getElementById('menuClose');
 const siteMenu = document.getElementById('siteMenu');
 
 function closeMenu() {
@@ -23,6 +24,11 @@ menuToggle.addEventListener('click', () => {
   } else {
     openMenu();
   }
+});
+
+// Close button
+menuClose.addEventListener('click', () => {
+  closeMenu();
 });
 
 siteMenu.addEventListener('click', (e) => {

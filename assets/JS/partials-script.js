@@ -5,8 +5,8 @@ async function loadHTML(id, file) {
 
     // Page-specific tweak
     const heroTag = el.querySelector('.hero-tag');
-    if (heroTag) {
-        heroTag.outerHTML = '<h2 class="hero-tag">Our Products.</h2>';
+    if (heroTag && window.location.pathname.includes('products')) {
+        heroTag.outerHTML = '<h2 class="hero-tag">Our Products</h2>';
     }
 }
 
